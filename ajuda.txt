@@ -1,0 +1,3 @@
+- -h ou --help: apresenta um resumo das regras do jogo e dos argumentos;
+- -r ou --records: apresenta os nomes dos usuários os tempos correspondentes dos melhores tempos para a dificuldade corrente;
+- -d <b | i | a> ou --difficulty <beginner | intermediary | advanced>: altera a dificuldade do jogo e então inicia uma partida no modo iniciante (opção 'b' ou 'beginner'), intermediário (opção 'i' ou 'intermediary') ou avançado (opção 'a' ou 'advanced')
