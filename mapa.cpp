@@ -3,13 +3,14 @@
 #include "configuracao.cpp"
 #include <vector>
 #include <random>
+
 class Mapa {
   std::vector < std::vector < Celula >> campo;
-  bool fimJogo = false;
-  bool mapaPopulado = false;
+  bool fimJogo {false};
+  bool mapaPopulado {false};
   Configuracao configuracao;
   int qtdReveladas;
-  const int adjacentes[8][2] = {{-1,-1},{-1,0},{-1,1},{0,-1},{0,1},{1,-1},{1,0},{1,-1}};
+  const int adjacentes[8][2] {{-1,-1},{-1,0},{-1,1},{0,-1},{0,1},{1,-1},{1,0},{1,1}};
 
 
 
@@ -25,7 +26,9 @@ class Mapa {
       }
   
     }
-
+  Configuracao RetornaConfiguracao(){
+    return configuracao;
+  }
   void popularMapa(unsigned int x, unsigned int y){
     int qtdBombasGeradas = 0;
     std::random_device radomDevice;
@@ -61,22 +64,22 @@ class Mapa {
   bool aoRedorIntermediario(int x, int y,int xSorteado, int ySorteado){
         if(configuracao.dif != Dificuldade::intermediario)
           return false;
-
+  if(x == xSorteado && y == ySorteado)
+    return true;
         for (int i = 0; i < 8; i++) {
-            int xR = adjacentes[i][1] + x;
-            int yR = adjacentes[i][0] + y;          
+            int xR = adjacentes[i][0] + x;
+            int yR = adjacentes[i][1] + y;          
           if(posicaoValida(xR,yR) && xR == xSorteado && yR == ySorteado)
             return true;
         }
         return false;
   }
   void incluirNumeros(){
-      int adjacentes[8][2] = {{-1,-1},{-1,0},{-1,1},{0,-1},{0,1},{1,-1},{1,0},{1,-1}};
       for (int y = 0; y < configuracao.qtdLinhas; y++) {
         for (int x = 0; x < configuracao.qtdColunas; x++) {
           for (int i = 0; i < 8; i++) {
-            int xR = adjacentes[i][1] + x;
-            int yR = adjacentes[i][0] + y;
+            int xR = adjacentes[i][0] + x;
+            int yR = adjacentes[i][1] + y;
              if(posicaoValida(xR,yR) && campo[yR][xR].isBomba())
               campo[y][x].incrementaBombaAdj();                     
           }          
@@ -86,12 +89,38 @@ class Mapa {
   std::vector < std::vector < Celula >> retornaCampoImpressao() {
     return this -> campo;
   }
-
+  int qtdBandeirasAoRedor(unsigned int x, unsigned int y){
+        int qtdBandeiras = 0;
+        for (int i = 0; i < 8; i++) {
+          int xR = x + adjacentes[i][0];
+          int yR = y + adjacentes[i][1];
+          if(posicaoValida(xR,yR)){
+            if(campo[yR][xR].getBandeira())
+              qtdBandeiras++;
+          }           
+        }
+      return qtdBandeiras;
+  }
+  void RevelarNumeroVisivel(unsigned int x, unsigned int y){
+          if(posicaoValida(x,y) && campo[y][x].getQtdBombas() == qtdBandeirasAoRedor(x,y)){
+              for (int i = 0; i < 8; i++) {
+                int xR = x + adjacentes[i][0];
+                int yR = y + adjacentes[i][1];
+                if(posicaoValida(xR,yR) && !campo[yR][xR].getBandeira()){
+                  if(campo[yR][xR].Revelar()){
+                    fimJogo = true;
+                    return;
+                  };
+                }           
+            }            
+          }     
+  }
   void RevelarPosicao(unsigned int x, unsigned int y) {
     if(!mapaPopulado)
       popularMapa(x,y);
-    
-    if (posicaoValida(x, y) && !campo[y][x].isVisivel() && !fimJogo && !campo[y][x].getBandeira()) {
+    if(campo[y][x].isVisivel() && campo[y][x].getQtdBombas() > 0)
+      RevelarNumeroVisivel(x,y);
+    else if (posicaoValida(x, y) && !campo[y][x].isVisivel() && !fimJogo && !campo[y][x].getBandeira()) {
       if (campo[y][x].Revelar()) {
         fimJogo = true;
         return;

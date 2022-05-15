@@ -1,8 +1,8 @@
 class Celula {
-  bool visivel = false;
-  bool is_Bomba = false;
-  bool bandeira = false;
-  unsigned int qtdBombasAdj = 0;
+  bool visivel  {false};
+  bool is_Bomba {false};
+  bool bandeira {false};
+  unsigned int qtdBombasAdj {0};
   
   public:             
       void tornarBomba(){

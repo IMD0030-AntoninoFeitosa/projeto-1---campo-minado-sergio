@@ -4,7 +4,6 @@ enum class Dificuldade : int
 };
 class Configuracao{
 public:
-  int dificuldade;
   int qtdLinhas;
   int qtdColunas;
   int qtdBombas;

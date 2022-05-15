@@ -1,3 +1,12 @@
-- -h ou --help: apresenta um resumo das regras do jogo e dos argumentos;
-- -r ou --records: apresenta os nomes dos usuários os tempos correspondentes dos melhores tempos para a dificuldade corrente;
-- -d <b | i | a> ou --difficulty <beginner | intermediary | advanced>: altera a dificuldade do jogo e então inicia uma partida no modo iniciante (opção 'b' ou 'beginner'), intermediário (opção 'i' ou 'intermediary') ou avançado (opção 'a' ou 'advanced')
+-h ou --help: apresenta um resumo das regras do jogo e dos argumentos;
+-r ou --records: apresenta os nomes dos usuários os tempos correspondentes dos melhores tempos para a dificuldade corrente;
+-ar ou --allrecords: apresenta os nomes dos usuários os tempos correspondentes dos melhores tempos para todas as dificuldades;
+-d <b | i | a> ou --difficulty <beginner | intermediary | advanced>: altera a dificuldade do jogo e então inicia uma partida no modo iniciante (opção 'b' ou 'beginner'), intermediário (opção 'i' ou 'intermediary') ou avançado (opção 'a' ou 'advanced').
+Como jogar?
+Informe uma letra represendo uma ação, seguidos de uma letra e um número,separados por espaço indicando a posição no campo na qual realizar a ação.
+Ações possíveis:
+B: Inclui uma bandeira na posição informada;
+R: Revela a posição informada.
+Exemplo:
+R A 5
+Revela a coluna número cinco da primeira linha (A);
