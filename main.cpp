@@ -19,9 +19,7 @@ void ImprimirMapa(){
   for(std::vector < Celula > linha : mapa->retornaCampoImpressao()){
     std::cout << char(65 + index++) << " ";
     for(Celula coluna : linha){
-      if(coluna.isBomba())
-        std::cout << " N ";
-      else if(coluna.getBandeira())
+    if(coluna.getBandeira())
         std::cout << " |>";
       else if(coluna.isBomba() && coluna.isVisivel())
         std::cout << " B ";
